@@ -107,6 +107,26 @@ def remove_tudo_o_que_não_for_letra(conteúdo_do_arquivo):
 
     return resultado
 
+def remove_espaços_múltiplos(conteúdo_do_arquivo):
+    """
+    Esta função remove múltiplos espaços que ocorram dentro das linhas
+    """
+
+    resultado = []  # Lista para guardar o resultado
+
+    for linha in conteúdo_do_arquivo:  # Percorre todo o arquivo
+
+        # A linha abaixo utiliza da biblioteca regex para remover
+        # espaços múltiplos nas linhas
+        # ' {2,}' - instrução regex que seleciona 2 ou mais espaços
+        linha = re.sub(r' {2,}', ' ', linha)
+
+        # Adiciona a linha processada ao resultado
+        resultado.append(linha)
+
+    # Retorna o resultado
+    return resultado
+
 
 def main():
     """
@@ -140,6 +160,9 @@ def main():
             # Remove tudo o que não for letra
             limpo = remove_tudo_o_que_não_for_letra(limpo)
             
+            # Remove espaços múltiplos das linhas
+            limpo = remove_espaços_múltiplos(limpo)
+
             # Remove as linhas que contém apenas espaços
             limpo = remove_linhas_com_apenas_espaços(limpo)
 
