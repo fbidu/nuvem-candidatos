@@ -41,6 +41,30 @@ def salva_lista(lista, caminho_do_arquivo, separador='\n'):
     # Fecha o arquivo no final do processamento
     saída.close()
 
+def remove_linhas_com_apenas_espaços(conteúdo_do_arquivo):
+    """
+    Esta função irá checar se uma linha é composta apenas
+    por espaços e, caso positivo, as remove da saída.
+
+    As diversas funções de limpeza desse script, substituem
+    os caracteres indesejados por espaço. Essa função limpa
+    as linhas que ficaram vazias.
+    """
+
+    resultado = []  # Lista vazia para guardar o resultado
+
+    for linha in conteúdo_do_arquivo:  # Percorre todas as linhas do arquivo
+
+        # Essa condicional retornará verdadeiro caso ainda restam caracteres
+        # na linha depois que tods os espaços foram apagados.
+        if re.sub(' ', '', linha):
+
+            # Caso ainda exista alguma coisa, colocamos no resultado
+            resultado.append(linha)
+
+    # Por fim, retornamos o resultado
+    return resultado
+
 def remove_separadores_de_palavra(conteúdo_do_arquivo):
     """
     Esta função recebe todo o conteúdo do arquivo na forma de uma lista
@@ -58,11 +82,8 @@ def remove_separadores_de_palavra(conteúdo_do_arquivo):
         # trocar os caractes indesejáveis por espaço
         linha = re.sub(r'[\b\r\n\.\?\!\;]', ' ', linha)
 
-        # Se ao removermos os espaços a linha fica vazia, ela não entra
-        # no resultado final. Caso contrário, entra.
-
-        if re.sub(' ', '', linha):
-            resultado.append(linha)
+        # Adiciona a linha processada ao resultado
+        resultado.append(linha)
 
     return resultado
 
@@ -86,12 +107,21 @@ def main():
             # Lê o conteúdo do arquivo
             conteúdo_do_arquivo = open(nome_do_arquivo, 'r').readlines()
 
+            # Ao processar o PDF, muitas linhas com apenas espaços são geradas.
+            # Limpar os espaços no início diminui o tamanho das listas a serem
+            # processadas a seguir
+            limpo = remove_linhas_com_apenas_espaços(conteúdo_do_arquivo)
+
             # Executa a remoção dos separadores de palavra
-            limpo = remove_separadores_de_palavra(conteúdo_do_arquivo)
+            limpo = remove_separadores_de_palavra(limpo)
+            
+            # Remove as linhas que contém apenas espaços
+            limpo = remove_linhas_com_apenas_espaços(limpo)
 
             # Monta o nome do arquivo de saída
             saída = arquivo[:-4] + '_limpo.txt'
 
+            # Salva o resultado da limpeza
             salva_lista(limpo, join(PLANOS_DE_GOVERNO, saída))
 
 
