@@ -18,6 +18,27 @@ from os.path import join  # Função que monta nomes de arquivo
 # Constante que guarda o nome da pasta que contém os planos de governo
 PLANOS_DE_GOVERNO = 'planos-de-governo'
 
+# Constante que guarda as palavras que serão excluídas
+EXCLUIR = (
+        'voto', 'srs', 'mas', 'minha', 'tão', 'portanto', 'sou', 'do', 'da',
+        'no', 'na', 'de', 'que', 'se', 'os', 'ao', 'aos', 'um', 'uma',
+        'deputado', 'sr', 'em', 'presidente', 'pelo', 'pela', 'para', 'meu',
+        'por', 'dos', 'eu', 'com', 'como', 'das', 'nome', 'as', 'sua', 'esse',
+        'este', 'seu', 'nas', 'deu', 'esta', 'tem', 'também', 'sra', 'pelas',
+        'nos', 'mais', 'nesta', 'foi', 'me', 'meus', 'há', 'aqui', 'ano',
+        'vou', 'ter', 'tenho', 'sras', 'são', 'neste', 'nós', 'nem', 'ser',
+        'está', 'nossa', 'isso', 'já', 'muito', 'mim', 'fazer', 'aquele',
+        'às', 'você', 'digo', 'vai', 'estamos', 'pelos', 'porque', 'minas',
+        'gerais', 'paulo', 'vamos', 'ele', 'ela', 'quem', 'rio', 'janeiro',
+        'sul', 'paraná', 'quando', 'bem', 'ano', 'anos', 'deste', 'quero',
+        'desta', 'dia', 'estão', 'todo', 'grande', 'toda', 'essa', 'seus',
+        'pernambuco', 'dias', 'tudo', 'maioria', 'santa', 'catarina', 'bahia',
+        'favor', 'hoje', 'sem', 'querem', 'minhas', 'região', 'votando',
+        'cada', 'pará', 'só', 'exa', 'mato', 'grosso', 'goiás', 'querida',
+        'querido', 'muita', 'todas', 'sempre', 'nosso', 'todos', 'deputados',
+        'casa', 'dizer', 'melhor', 'votar', 'fim', 'mineiro', 'primeiro',
+'temos')
+
 def salva_lista(lista, caminho_do_arquivo, separador='\n'):
     """
     Esta função salva todo o conteúdo de uma lista em um novo arquivo
@@ -127,6 +148,35 @@ def remove_espaços_múltiplos(conteúdo_do_arquivo):
     # Retorna o resultado
     return resultado
 
+def remove_palavras_pequenas(conteúdo_do_arquivo, limite=3):
+    """
+    Esta função irá remover todas as palavras de tamanho menor ou
+    igual ao limite definido.
+
+    Poderíamos utilizar de list comprehensions para ter o mesmo efeito,
+    mas escolhi escrever em loops explícitos para facilitar a compreensão.
+    """
+
+    resultado = []  # Lista para guardar o resultado
+
+    for linha in conteúdo_do_arquivo:  # Percorre todo o arquivo
+
+        palavras_filtradas = []  # Lista para guardar as palavras filtradas
+        for palavra in linha.split():  # Percorre todas as palavras na linha
+
+            # Se o tamanho da palavra for maior que o limite
+            if len(palavra) > limite:
+                palavras_filtradas.append(palavra)
+
+        # Reconstrói a linha apenas com as palavras aprovadas
+        linha = ' '.join(palavras_filtradas)
+
+        # Adiciona a linha ao resultado
+        resultado.append(linha)
+
+    return resultado
+                
+
 
 def main():
     """
@@ -162,6 +212,9 @@ def main():
             
             # Remove espaços múltiplos das linhas
             limpo = remove_espaços_múltiplos(limpo)
+
+            # Remove as palavras pequenas
+            limpo = remove_palavras_pequenas(limpo)
 
             # Remove as linhas que contém apenas espaços
             limpo = remove_linhas_com_apenas_espaços(limpo)
