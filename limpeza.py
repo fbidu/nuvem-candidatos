@@ -87,6 +87,27 @@ def remove_separadores_de_palavra(conteúdo_do_arquivo):
 
     return resultado
 
+def remove_tudo_o_que_não_for_letra(conteúdo_do_arquivo):
+    """
+    Esta função irá trocar todos os números e símbolos por espaços vazios
+    """
+
+    resultado = []  # Cria uma lista vazia para o resultado
+
+    for linha in conteúdo_do_arquivo:  # Percorre todo o arquivo
+
+        # Utiliza da biblioteca regex para remover caracteres que 
+        # não sejam de palavras.
+        # \W - Regex para 'qualquer coisa que não seja letra, dígito ou _'
+        # \d - Regex para 'qualquer dígito'
+        linha = re.sub(r'[\W\d]', ' ', linha)
+
+        # Adiciona a linha ao resultado
+        resultado.append(linha)
+
+    return resultado
+
+
 def main():
     """
     A função principal que executará todas as rotinas de limpeza e salvará
@@ -96,8 +117,9 @@ def main():
     # Laço que percorre todos os arquivos na pasta planos-de-governo
     for arquivo in listdir('planos-de-governo'):
 
-        # Estamos lidando com um arquivo com a extensão .txt?
-        if arquivo.endswith('txt'):
+        # Estamos lidando com um arquivo com a extensão .txt e que
+        # não seja um arquivo já limpo?
+        if arquivo.endswith('.txt') and not arquivo.endswith('_limpo.txt'):
 
             limpo = []  # Lista vazia para receber o resultado da limpeza
 
@@ -114,6 +136,9 @@ def main():
 
             # Executa a remoção dos separadores de palavra
             limpo = remove_separadores_de_palavra(limpo)
+
+            # Remove tudo o que não for letra
+            limpo = remove_tudo_o_que_não_for_letra(limpo)
             
             # Remove as linhas que contém apenas espaços
             limpo = remove_linhas_com_apenas_espaços(limpo)
