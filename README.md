@@ -1,5 +1,9 @@
 # Nuvem dos Candidatos
 
+__Clique aqui para ver um passo a passo interativo sobre o processo de construir as nuvens:__
+
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/fbidu/nuvem-candidatos/master?filepath=passo_a_passo.ipynb)
+
 Ano de eleição, ano de montes de texto sobre planos de governo de diversos candidatos.
 Seguindo os moldes do que fiz na [votação do impeachment de 2016 na câmara](https://github.com/fbidu/impeachment-cloud) vou montar nuvens de palavras com base nos planos de governo dos presidenciáveis.
 
@@ -9,7 +13,7 @@ Quanto maior a palavra, maior a frequência com que ela aparece no texto.
 
 ## Brincando com o código
 
-O arquivo [Passo a passo.ipynb](Passo a passo.ipynb) explica em detalhes como é o processo de limpeza e geração das nuvens. Você pode abri ele aqui mesmo no GitHub ou clicar no link do "MyBinder" ali em cima para ter uma versão completamente interativa do código, direto do seu navegador, sem precisar instalar nada.
+O arquivo [passo_a_passo.ipynb](https://github.com/fbidu/nuvem-candidatos/blob/master/passo_a_passo.ipynb) explica em detalhes como é o processo de limpeza e geração das nuvens. Você pode abri ele aqui mesmo no GitHub ou clicar no link do "MyBinder" ali em cima para ter uma versão completamente interativa do código, direto do seu navegador, sem precisar instalar nada.
 
 ## Nuvens atuais
 
