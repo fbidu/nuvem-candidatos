@@ -19,12 +19,35 @@ from os.path import join  # Função que monta nomes de arquivo
 # Constante que guarda o nome da pasta que contém os planos de governo
 PLANOS_DE_GOVERNO = 'planos-de-governo'
 
+# Preposições do português. Serão excluídos da análise
+PREPOSIÇÕES = set([
+    'a', 'ante', 'após', 'até', 'com', 'contra', 'de', 'desde',
+    'em', 'entre', 'para', 'perante', 'por', 'sem', 'sob', 'sobre', 'trás'
+])
+
+# Pronomes do português. Serão excluídos da análise
+PRONOMES = set([
+    "a", "algo", "algum", "alguma", "algumas", "alguns", "alguém", "aquela",
+    "aquelas", "aquele", "aqueles", "aquilo", "as", "cada", "certa", "certas",
+    "certo", "certos", "cuja", "cujas", "cujo", "cujos", "ela", "elas", "ele",
+    "eles", "essa", "essas", "esse", "esses", "esta", "estas", "este", "estes",
+    "eu", "isso", "isto", "lhe", "lhes", "me", "meu", "meus", "mim", "minha",
+    "minhas", "muita", "muitas", "muito", "muitos", "nada", "nenhum", "nenhuma",
+    "nenhumas", "nenhuns", "ninguém", "nossa", "nossas", "nosso", "nossos", "nós",
+    "o", "os", "outra", "outras", "outrem", "outro", "outros", "pouca", "poucas",
+    "pouco", "poucos", "quais", "quaisquer", "qual", "qualquer", "quanta", "quantas",
+    "quanto", "quantos", "se", "seu", "seus", "si", "sua", "suas", "sí", "tanta", "tantas",
+    "tanto", "tantos", "te", "teu", "teus", "ti", "toda", "todas", "todo", "todos", "tu",
+    "tua", "tuas", "tudo", "vos", "vossa", "vossas", "vosso", "vossos", "vária", "várias",
+    "vários", "vós"
+])
+
 # Constante que guarda as palavras que serão excluídas
-EXCLUIR = (
+EXCLUIR = set([
     'voto', 'srs', 'mas', 'minha', 'tão', 'portanto', 'sou', 'do', 'da',
-    'no', 'na', 'de', 'que', 'se', 'os', 'ao', 'aos', 'um', 'uma',
-    'deputado', 'sr', 'em', 'presidente', 'pelo', 'pela', 'para', 'meu',
-    'por', 'dos', 'eu', 'com', 'como', 'das', 'nome', 'as', 'sua', 'esse',
+    'no', 'na', 'que', 'se', 'os', 'ao', 'aos', 'um', 'uma',
+    'deputado', 'sr', 'presidente', 'pelo', 'pela', 'meu',
+    'dos', 'eu', 'como', 'das', 'nome', 'as', 'sua', 'esse',
     'este', 'seu', 'nas', 'deu', 'esta', 'tem', 'também', 'sra', 'pelas',
     'nos', 'mais', 'nesta', 'foi', 'me', 'meus', 'há', 'aqui', 'ano',
     'vou', 'ter', 'tenho', 'sras', 'são', 'neste', 'nós', 'nem', 'ser',
@@ -34,11 +57,17 @@ EXCLUIR = (
     'sul', 'paraná', 'quando', 'bem', 'ano', 'anos', 'deste', 'quero',
     'desta', 'dia', 'estão', 'todo', 'grande', 'toda', 'essa', 'seus',
     'pernambuco', 'dias', 'tudo', 'maioria', 'santa', 'catarina', 'bahia',
-    'favor', 'hoje', 'sem', 'querem', 'minhas', 'região', 'votando',
+    'favor', 'hoje', 'querem', 'minhas', 'região', 'votando',
     'cada', 'pará', 'só', 'exa', 'mato', 'grosso', 'goiás', 'querida',
     'querido', 'muita', 'todas', 'sempre', 'nosso', 'todos', 'deputados',
     'casa', 'dizer', 'melhor', 'votar', 'fim', 'mineiro', 'primeiro',
-    'temos')
+    'temos', 'deste', 'será', 'envolve', 'esses', 'estes', 'estas',
+    'destas', 'aquela', 'naquela'
+])
+
+EXCLUIR |= PRONOMES
+EXCLUIR |= PREPOSIÇÕES
+
 
 def salva_lista(lista, caminho_do_arquivo, separador='\n'):
     """
@@ -192,6 +221,26 @@ def converte_palavras_para_minúsculo(conteúdo_do_arquivo):
 
     return resultado
 
+def remove_palavras_indesejadas(conteúdo_do_arquivo):
+    """
+    Essa função remove todas as palavras em EXCLUIR da linha
+    """
+
+    resultado = []  # Lista para guardar o resultado
+
+    # Monta uma expressão regular que encontra todas as palavras em EXCLUIR
+    expressão = r"\b(" + "|".join(EXCLUIR) + r")\b"
+
+    for linha in conteúdo_do_arquivo:
+
+        # Troca todas as palavras indesejadas por espaços
+        linha = re.sub(expressão, ' ', linha)
+
+        # Adiciona a nova linha ao resultado
+        resultado.append(linha)
+
+    return resultado
+
 def main():
     """
     A função principal que executará todas as rotinas de limpeza e salvará
@@ -224,14 +273,17 @@ def main():
             # Remove tudo o que não for letra
             limpo = remove_tudo_o_que_não_for_letra(limpo)
 
-            # Remove espaços múltiplos das linhas
-            limpo = remove_espaços_múltiplos(limpo)
-
             # Remove as palavras pequenas
             limpo = remove_palavras_pequenas(limpo)
 
             # Converte linhas para minúsculas
             limpo = converte_palavras_para_minúsculo(limpo)
+
+            # Remove palavras indesejadas
+            limpo = remove_palavras_indesejadas(limpo)
+
+            # Remove espaços múltiplos das linhas
+            limpo = remove_espaços_múltiplos(limpo)
 
             # Remove as linhas que contém apenas espaços
             limpo = remove_linhas_com_apenas_espaços(limpo)
