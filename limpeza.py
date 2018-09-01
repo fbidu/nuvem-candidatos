@@ -62,9 +62,17 @@ EXCLUIR = set([
     'querido', 'muita', 'todas', 'sempre', 'nosso', 'todos', 'deputados',
     'casa', 'dizer', 'melhor', 'votar', 'fim', 'mineiro', 'primeiro',
     'temos', 'deste', 'será', 'envolve', 'esses', 'estes', 'estas',
-    'destas', 'aquela', 'naquela'
+    'destas', 'aquela', 'naquela', 'menos', 'queremos', 'precisa', 'forma',
+    'tenha', 'ainda', 'maior', 'possam', 'sendo', 'tenham', 'milhões', 'apenas',
+    'relação', 'ranking', 'índice', 'estar', 'único', 'média', 'quadro',
+    'escolha', 'apesar', 'preciso', 'principalmente','próximo', 'importante',
+    'deve', 'cado', 'alto', 'ciente', 'meio', 'sejam', 'assim', 'piores',
+    'médio', 'vezes', 'maiores', 'enquanto', 'gasta', 'aumentar', 'mesma', 'segundo',
+    'acima', 'foram', 'através', 'além', 'disso', 'pode', 'houve', 'caso'
+    'serão', 'terá', 'terão', 'bilhões', 'milhares', 'política'
 ])
 
+# Combina todos os conjuntos de palavras que serão excluídas em uma só
 EXCLUIR |= PRONOMES
 EXCLUIR |= PREPOSIÇÕES
 
