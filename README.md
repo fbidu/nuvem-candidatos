@@ -7,6 +7,10 @@ Todos os planos foram baixados em PDF do site do TSE e convertidos para texto ut
 
 Quanto maior a palavra, maior a frequência com que ela aparece no texto.
 
+## Brincando com o código
+
+O arquivo [Passo a passo.ipynb](Passo a passo.ipynb) explica em detalhes como é o processo de limpeza e geração das nuvens. Você pode abri ele aqui mesmo no GitHub ou clicar no link do "MyBinder" ali em cima para ter uma versão completamente interativa do código, direto do seu navegador, sem precisar instalar nada.
+
 ## Nuvens atuais
 
 Em ordem alfabética
