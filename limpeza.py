@@ -1,4 +1,5 @@
 """
+encoding: utf-8
 A primeira parte do processamento.
 
 Os arquivos PDF convertidos automaticamente possuem diversas linhas em branco.
@@ -6,7 +7,7 @@ Além disso, palavras muito curtas, preposições e pronomes não fazem sentido
 ao montar uma nuvem de palavras.
 
 Esse script passa por todos os arquivos de texto na pasta planos-de-governo e
-executa diversos procedimentos de limpeza, dando origem aos arquivos 
+executa diversos procedimentos de limpeza, dando origem aos arquivos
 nome_do_candidato_limpo.txt, que serão utilizados nas próximas etapas.
 """
 
@@ -20,24 +21,24 @@ PLANOS_DE_GOVERNO = 'planos-de-governo'
 
 # Constante que guarda as palavras que serão excluídas
 EXCLUIR = (
-        'voto', 'srs', 'mas', 'minha', 'tão', 'portanto', 'sou', 'do', 'da',
-        'no', 'na', 'de', 'que', 'se', 'os', 'ao', 'aos', 'um', 'uma',
-        'deputado', 'sr', 'em', 'presidente', 'pelo', 'pela', 'para', 'meu',
-        'por', 'dos', 'eu', 'com', 'como', 'das', 'nome', 'as', 'sua', 'esse',
-        'este', 'seu', 'nas', 'deu', 'esta', 'tem', 'também', 'sra', 'pelas',
-        'nos', 'mais', 'nesta', 'foi', 'me', 'meus', 'há', 'aqui', 'ano',
-        'vou', 'ter', 'tenho', 'sras', 'são', 'neste', 'nós', 'nem', 'ser',
-        'está', 'nossa', 'isso', 'já', 'muito', 'mim', 'fazer', 'aquele',
-        'às', 'você', 'digo', 'vai', 'estamos', 'pelos', 'porque', 'minas',
-        'gerais', 'paulo', 'vamos', 'ele', 'ela', 'quem', 'rio', 'janeiro',
-        'sul', 'paraná', 'quando', 'bem', 'ano', 'anos', 'deste', 'quero',
-        'desta', 'dia', 'estão', 'todo', 'grande', 'toda', 'essa', 'seus',
-        'pernambuco', 'dias', 'tudo', 'maioria', 'santa', 'catarina', 'bahia',
-        'favor', 'hoje', 'sem', 'querem', 'minhas', 'região', 'votando',
-        'cada', 'pará', 'só', 'exa', 'mato', 'grosso', 'goiás', 'querida',
-        'querido', 'muita', 'todas', 'sempre', 'nosso', 'todos', 'deputados',
-        'casa', 'dizer', 'melhor', 'votar', 'fim', 'mineiro', 'primeiro',
-'temos')
+    'voto', 'srs', 'mas', 'minha', 'tão', 'portanto', 'sou', 'do', 'da',
+    'no', 'na', 'de', 'que', 'se', 'os', 'ao', 'aos', 'um', 'uma',
+    'deputado', 'sr', 'em', 'presidente', 'pelo', 'pela', 'para', 'meu',
+    'por', 'dos', 'eu', 'com', 'como', 'das', 'nome', 'as', 'sua', 'esse',
+    'este', 'seu', 'nas', 'deu', 'esta', 'tem', 'também', 'sra', 'pelas',
+    'nos', 'mais', 'nesta', 'foi', 'me', 'meus', 'há', 'aqui', 'ano',
+    'vou', 'ter', 'tenho', 'sras', 'são', 'neste', 'nós', 'nem', 'ser',
+    'está', 'nossa', 'isso', 'já', 'muito', 'mim', 'fazer', 'aquele',
+    'às', 'você', 'digo', 'vai', 'estamos', 'pelos', 'porque', 'minas',
+    'gerais', 'paulo', 'vamos', 'ele', 'ela', 'quem', 'rio', 'janeiro',
+    'sul', 'paraná', 'quando', 'bem', 'ano', 'anos', 'deste', 'quero',
+    'desta', 'dia', 'estão', 'todo', 'grande', 'toda', 'essa', 'seus',
+    'pernambuco', 'dias', 'tudo', 'maioria', 'santa', 'catarina', 'bahia',
+    'favor', 'hoje', 'sem', 'querem', 'minhas', 'região', 'votando',
+    'cada', 'pará', 'só', 'exa', 'mato', 'grosso', 'goiás', 'querida',
+    'querido', 'muita', 'todas', 'sempre', 'nosso', 'todos', 'deputados',
+    'casa', 'dizer', 'melhor', 'votar', 'fim', 'mineiro', 'primeiro',
+    'temos')
 
 def salva_lista(lista, caminho_do_arquivo, separador='\n'):
     """
@@ -117,7 +118,7 @@ def remove_tudo_o_que_não_for_letra(conteúdo_do_arquivo):
 
     for linha in conteúdo_do_arquivo:  # Percorre todo o arquivo
 
-        # Utiliza da biblioteca regex para remover caracteres que 
+        # Utiliza da biblioteca regex para remover caracteres que
         # não sejam de palavras.
         # \W - Regex para 'qualquer coisa que não seja letra, dígito ou _'
         # \d - Regex para 'qualquer dígito'
@@ -175,8 +176,21 @@ def remove_palavras_pequenas(conteúdo_do_arquivo, limite=3):
         resultado.append(linha)
 
     return resultado
-                
 
+def converte_palavras_para_minúsculo(conteúdo_do_arquivo):
+    """
+    Esta função retorna todas as linhas usando apenas letras minúsculas
+    """
+
+    resultado = []  # Lista para guardar o resultado
+
+    for linha in conteúdo_do_arquivo:  # Percorre todo o arquivo
+
+        linha = linha.lower()  # Converte a linha para minúsculas
+
+        resultado.append(linha)  # Adiciona a linha ao resultado
+
+    return resultado
 
 def main():
     """
@@ -209,12 +223,15 @@ def main():
 
             # Remove tudo o que não for letra
             limpo = remove_tudo_o_que_não_for_letra(limpo)
-            
+
             # Remove espaços múltiplos das linhas
             limpo = remove_espaços_múltiplos(limpo)
 
             # Remove as palavras pequenas
             limpo = remove_palavras_pequenas(limpo)
+
+            # Converte linhas para minúsculas
+            limpo = converte_palavras_para_minúsculo(limpo)
 
             # Remove as linhas que contém apenas espaços
             limpo = remove_linhas_com_apenas_espaços(limpo)
