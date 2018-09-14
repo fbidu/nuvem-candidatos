@@ -11,7 +11,7 @@ def main():
     Função principal que gera todas as nuvens com base
     nos planos de governo limpos e salva em arquivos
     """
-    
+
     # Obtém o caminho do diretório atual
     diretório_atual = dirname(__file__)
 
@@ -23,7 +23,8 @@ def main():
     # definindo suas dimensões e quantas palavras queremos no máximo,
     # as cores que queremos usar e a fonte
     word_cloud = WordCloud(width=1080, height=720,
-                           max_words=200, font_path=fonte)
+                           max_words=200, font_path=fonte,
+                           collocations=False)
 
     # Percorre todos os arquivos em planos-de-governo
     for arquivo in listdir('planos-de-governo/'):
