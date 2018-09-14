@@ -34,7 +34,7 @@ Quanto maior a palavra, maior a frequência com que ela aparece no texto.
 
 ## Brincando com o código
 
-O arquivo [passo_a_passo.ipynb](https://github.com/fbidu/nuvem-candidatos/blob/master/passo_a_passo.ipynb) explica em detalhes como é o processo de limpeza e geração das nuvens. Você pode abri ele aqui mesmo no GitHub ou clicar no link do "MyBinder" ali em cima para ter uma versão completamente interativa do código, direto do seu navegador, sem precisar instalar nada.
+O arquivo [passo_a_passo.ipynb](https://github.com/fbidu/nuvem-candidatos/blob/master/passo_a_passo.ipynb) explica em detalhes como é o processo de limpeza e geração das nuvens. Você pode abrí-lo aqui mesmo no GitHub ou clicar no link do "MyBinder" em cima para ter uma versão completamente interativa do código, direto do seu navegador, sem precisar instalar nada.
 
 ## Nuvens atuais
 
