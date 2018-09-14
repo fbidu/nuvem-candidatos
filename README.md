@@ -1,6 +1,6 @@
 # Nuvem dos Candidatos
 
-__Clique aqui para ver um passo a passo interativo sobre o processo de construir as nuvens:__
+__Clique em "binder" para ver um passo a passo interativo sobre o processo de construir as nuvens:__
 
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/fbidu/nuvem-candidatos/master?filepath=passo_a_passo.ipynb)
 
@@ -10,6 +10,27 @@ Seguindo os moldes do que fiz na [votação do impeachment de 2016 na câmara](h
 Todos os planos foram baixados em PDF do site do TSE e convertidos para texto utilizando ferramentas automáticas. Falhas no processo de conversão podem ocorrer e, caso os planos sejam disponibilizados em formato de texto puro, esse projeto será atualizado.
 
 Quanto maior a palavra, maior a frequência com que ela aparece no texto.
+
+## Sumário
+
+- [Nuvem dos Candidatos](#nuvem-dos-candidatos)
+  - [Sumário](#sum%C3%A1rio)
+  - [Brincando com o código](#brincando-com-o-c%C3%B3digo)
+  - [Nuvens atuais](#nuvens-atuais)
+    - [Álvaro Dias](#%C3%A1lvaro-dias)
+    - [Cabo Daciolo](#cabo-daciolo)
+    - [Ciro Gomes](#ciro-gomes)
+    - [Eymael](#eymael)
+    - [Geraldo Alckmin](#geraldo-alckmin)
+    - [Guilherme Boulos](#guilherme-boulos)
+    - [Henrique Meireles](#henrique-meireles)
+    - [Jair Bolsonaro](#jair-bolsonaro)
+    - [João Amoedo](#jo%C3%A3o-amoedo)
+    - [João Goulart Filho](#jo%C3%A3o-goulart-filho)
+    - [Luiz Inácio Lula da Silva](#luiz-in%C3%A1cio-lula-da-silva)
+    - [Marina Silva](#marina-silva)
+    - [Vera](#vera)
+  - [Sobre o idioma do projeto](#sobre-o-idioma-do-projeto)
 
 ## Brincando com o código
 
